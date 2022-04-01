@@ -16,20 +16,20 @@ $fine=$_POST['fine'];
 $ISBNNumber=$_GET['ISBNNumber'];
 
 $rstatus=1;
-$sql="update tblissuedbookdetails set fine=:fine,ReturnStatus=:rstatus where id=:rid";
+$sql="update tblissuedsongdetails set fine=:fine,ReturnStatus=:rstatus where id=:rid";
 $query = $dbh->prepare($sql);
 $query->bindParam(':rid',$rid,PDO::PARAM_STR);
 $query->bindParam(':fine',$fine,PDO::PARAM_STR);
 $query->bindParam(':rstatus',$rstatus,PDO::PARAM_STR);
 $query->execute();
 
-$sql="update tblbooks set IssuedCopies=IssuedCopies-1 where ISBNNumber=:ISBNNumber";
+$sql="update tblsongs set IssuedCopies=IssuedCopies-1 where ISBNNumber=:ISBNNumber";
 $query = $dbh->prepare($sql);
 $query->bindParam(':ISBNNumber',$ISBNNumber,PDO::PARAM_STR);
 $query->execute();
 
-$_SESSION['msg']="Book Returned successfully";
-header('location:manage-issued-books.php');
+$_SESSION['msg']="song Returned successfully";
+header('location:manage-issued-songs.php');
 
 
 }
@@ -42,7 +42,7 @@ header('location:manage-issued-books.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Online Library Management System | Issued Book Details</title>
+    <title>Online Library Management System | Issued song Details</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -67,15 +67,15 @@ error:function (){}
 });
 }
 
-//function for book details
-function getbook() {
+//function for song details
+function getsong() {
 $("#loaderIcon").show();
 jQuery.ajax({
-url: "get_book.php",
-data:'bookid='+$("#bookid").val(),
+url: "get_song.php",
+data:'songid='+$("#songid").val(),
 type: "POST",
 success:function(data){
-$("#get_book_name").html(data);
+$("#get_song_name").html(data);
 $("#loaderIcon").hide();
 },
 error:function (){}
@@ -101,7 +101,7 @@ error:function (){}
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Issued Book Details</h4>
+                <h4 class="header-line">Issued song Details</h4>
                 
                             </div>
 
@@ -110,13 +110,13 @@ error:function (){}
 <div class="col-md-10 col-sm-6 col-xs-12 col-md-offset-1"">
 <div class="panel panel-info">
 <div class="panel-heading">
-Issued Book Details
+Issued song Details
 </div>
 <div class="panel-body">
 <form role="form" method="post">
 <?php 
 $rid=intval($_GET['rid']);
-$sql = "SELECT tblstudents.FullName,tblbooks.BookName,tblbooks.id,tblbooks.ISBNNumber,tblissuedbookdetails.IssuesDate,tblissuedbookdetails.ReturnDate,tblissuedbookdetails.id as rid,tblissuedbookdetails.fine,tblissuedbookdetails.ReturnStatus from  tblissuedbookdetails join tblstudents on tblstudents.StudentId=tblissuedbookdetails.StudentId join tblbooks on tblbooks.id=tblissuedbookdetails.BookId where tblissuedbookdetails.id=:rid";
+$sql = "SELECT tblstudents.FullName,tblsongs.songName,tblsongs.id,tblsongs.ISBNNumber,tblissuedsongdetails.IssuesDate,tblissuedsongdetails.ReturnDate,tblissuedsongdetails.id as rid,tblissuedsongdetails.fine,tblissuedsongdetails.ReturnStatus from  tblissuedsongdetails join tblstudents on tblstudents.StudentId=tblissuedsongdetails.StudentId join tblsongs on tblsongs.id=tblissuedsongdetails.songId where tblissuedsongdetails.id=:rid";
 $query = $dbh -> prepare($sql);
 $query->bindParam(':rid',$rid,PDO::PARAM_STR);
 $query->execute();
@@ -136,13 +136,13 @@ foreach($results as $result)
 </div>
 
 <div class="form-group">
-<label>Book Name :</label>
-<?php echo htmlentities($result->BookName);?>
+<label>song Name :</label>
+<?php echo htmlentities($result->songName);?>
 </div>
 
 
 <div class="form-group">
-<label>Book ID :</label>
+<label>song ID :</label>
 <?php echo htmlentities($result->id);?>
 </div>
 
@@ -152,12 +152,12 @@ foreach($results as $result)
 </div>
 
 <div class="form-group">
-<label>Book Issued Date :</label>
+<label>song Issued Date :</label>
 <?php echo htmlentities($result->IssuesDate);?>
 </div>
 
 <div class="form-group">
-<label>Book Returned Date :</label>
+<label>song Returned Date :</label>
 <?php if($result->ReturnDate=="")
                                             {
                                                 echo htmlentities("Not Return Yet");
@@ -204,7 +204,7 @@ else
 <div class="form-group">
 <div class="row">
 <div class="col-sm-8" style="padding-left:20px;padding-top:-20px;">
-<button type="submit" name="return" id="submit" class="btn btn-info">Return Book</button>
+<button type="submit" name="return" id="submit" class="btn btn-info">Return song</button>
 </div>
 </div>
 </div>

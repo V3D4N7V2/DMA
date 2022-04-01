@@ -41,8 +41,8 @@
                                      <li role="presentation"><a role="menuitem" tabindex="-1" href="change-password.php">Change Password</a></li>
                                 </ul>
                             </li>
-                            <li><a href="issued-books.php">Issued Books</a></li>
-                            <li><a href="request-a-book.php">Request a Book</a></li>    
+                            <li><a href="issued-songs.php">Issued songs</a></li>
+                            <li><a href="request-a-song.php">Request a song</a></li>    
                         </ul>
                     </div>
                 </div>

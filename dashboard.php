@@ -49,16 +49,16 @@ if (strlen($_SESSION['login']) == 0) {
               <i class="fa fa-bars fa-5x"></i>
               <?php
               $sid = $_SESSION['stdid'];
-              $sql1 = "SELECT id from tblissuedbookdetails where StudentID=:sid";
+              $sql1 = "SELECT id from tblissuedsongdetails where StudentID=:sid";
               $query1 = $dbh->prepare($sql1);
               $query1->bindParam(':sid', $sid, PDO::PARAM_STR);
               $query1->execute();
               $results1 = $query1->fetchAll(PDO::FETCH_OBJ);
-              $issuedbooks = $query1->rowCount();
+              $issuedsongs = $query1->rowCount();
               ?>
 
-              <h3><?php echo htmlentities($issuedbooks); ?> </h3>
-              Book Issued
+              <h3><?php echo htmlentities($issuedsongs); ?> </h3>
+              song Issued
             </div>
           </div>
 
@@ -67,17 +67,17 @@ if (strlen($_SESSION['login']) == 0) {
               <i class="fa fa-recycle fa-5x"></i>
               <?php
               $rsts = 0;
-              $sql2 = "SELECT id from tblissuedbookdetails where StudentID=:sid and ReturnStatus=:rsts";
+              $sql2 = "SELECT id from tblissuedsongdetails where StudentID=:sid and ReturnStatus=:rsts";
               $query2 = $dbh->prepare($sql2);
               $query2->bindParam(':sid', $sid, PDO::PARAM_STR);
               $query2->bindParam(':rsts', $rsts, PDO::PARAM_STR);
               $query2->execute();
               $results2 = $query2->fetchAll(PDO::FETCH_OBJ);
-              $returnedbooks = $query2->rowCount();
+              $returnedsongs = $query2->rowCount();
               ?>
 
-              <h3><?php echo htmlentities($returnedbooks); ?></h3>
-              Books Not Returned Yet
+              <h3><?php echo htmlentities($returnedsongs); ?></h3>
+              songs Not Returned Yet
             </div>
           </div>
         </div>

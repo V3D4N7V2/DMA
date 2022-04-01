@@ -27,7 +27,7 @@ if (strlen($_SESSION['login']) == 0) {
             <div class="container">
                 <div class="row pad-botm">
                     <div class="col-md-12">
-                        <h4 class="header-line">Manage Issued Books</h4>
+                        <h4 class="header-line">Manage Issued songs</h4>
                     </div>
 
 
@@ -36,7 +36,7 @@ if (strlen($_SESSION['login']) == 0) {
                             <!-- Advanced Tables -->
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    Issued Books
+                                    Issued songs
                                 </div>
                                 <div class="panel-body">
                                     <div class="table-responsive">
@@ -54,7 +54,7 @@ if (strlen($_SESSION['login']) == 0) {
                                             <tbody>
                                                 <?php
                                                 $sid = $_SESSION['stdid'];
-                                                // $sql = "SELECT tblbooks.BookName,tblbooks.ISBNNumber,tblissuedbookdetails.IssuesDate,tblissuedbookdetails.ReturnDate,tblissuedbookdetails.id as rid,tblissuedbookdetails.fine from  tblissuedbookdetails join tblstudents on tblstudents.StudentId=tblissuedbookdetails.StudentId join tblbooks on tblbooks.id=tblissuedbookdetails.BookId where tblstudents.StudentId=:sid order by tblissuedbookdetails.id desc";
+                                                // $sql = "SELECT tblsongs.songName,tblsongs.ISBNNumber,tblissuedsongdetails.IssuesDate,tblissuedsongdetails.ReturnDate,tblissuedsongdetails.id as rid,tblissuedsongdetails.fine from  tblissuedsongdetails join tblstudents on tblstudents.StudentId=tblissuedsongdetails.StudentId join tblsongs on tblsongs.id=tblissuedsongdetails.songId where tblstudents.StudentId=:sid order by tblissuedsongdetails.id desc";
                                                 $sql = "SELECT * from  users";
                                                 $query = $dbh->prepare($sql);
                                                 // $query->bindParam(':sid', $sid, PDO::PARAM_STR);

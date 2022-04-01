@@ -12,29 +12,29 @@ if(isset($_POST['issue']))
 {
 
 $studentid=strtoupper($_POST['studentid']);
-$bookid=$_POST['bookdetails'];
-$sql="INSERT INTO  tblissuedbookdetails(StudentID,BookId) VALUES(:studentid,:bookid)";
+$songid=$_POST['songdetails'];
+$sql="INSERT INTO  tblissuedsongdetails(StudentID,songId) VALUES(:studentid,:songid)";
 $query = $dbh->prepare($sql);
 $query->bindParam(':studentid',$studentid,PDO::PARAM_STR);
-$query->bindParam(':bookid',$bookid,PDO::PARAM_STR);
+$query->bindParam(':songid',$songid,PDO::PARAM_STR);
 $query->execute();
 $lastInsertId = $dbh->lastInsertId();
 
-$bookid=$_GET['ISBNNumber'];
+$songid=$_GET['ISBNNumber'];
 $studentid=$_GET['StudentID'];
-$sql="DELETE FROM tblrequestedbookdetails WHERE StudentID=:studentid and ISBNNumber=:bookid";
+$sql="DELETE FROM tblrequestedsongdetails WHERE StudentID=:studentid and ISBNNumber=:songid";
 $query = $dbh->prepare($sql);
 $query -> bindParam(':studentid',$studentid, PDO::PARAM_STR);
-$query -> bindParam(':bookid',$bookid, PDO::PARAM_STR);
+$query -> bindParam(':songid',$songid, PDO::PARAM_STR);
 $query->execute();
 
-$sql="update tblbooks set IssuedCopies=IssuedCopies+1 where ISBNNumber=:bookid";
+$sql="update tblsongs set IssuedCopies=IssuedCopies+1 where ISBNNumber=:songid";
 $query = $dbh->prepare($sql);
-$query->bindParam(':bookid',$bookid,PDO::PARAM_STR);
+$query->bindParam(':songid',$songid,PDO::PARAM_STR);
 $query->execute();
 
-$_SESSION['msg']="Book issued successfully";
-header('location:manage-issued-books.php');
+$_SESSION['msg']="song issued successfully";
+header('location:manage-issued-songs.php');
 
 }
 ?>
@@ -45,7 +45,7 @@ header('location:manage-issued-books.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Online Library Management System | Issue a new Book</title>
+    <title>Online Library Management System | Issue a new song</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -70,15 +70,15 @@ error:function (){}
 });
 }
 
-//function for book details
-function getbook() {
+//function for song details
+function getsong() {
 $("#loaderIcon").show();
 jQuery.ajax({
-url: "get_book.php",
-data:'bookid='+$("#bookid").val(),
+url: "get_song.php",
+data:'songid='+$("#songid").val(),
 type: "POST",
 success:function(data){
-$("#get_book_name").html(data);
+$("#get_song_name").html(data);
 $("#loaderIcon").hide();
 },
 error:function (){}
@@ -104,7 +104,7 @@ error:function (){}
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Issue a New Book</h4>
+                <h4 class="header-line">Issue a New song</h4>
                 
                             </div>
 
@@ -113,7 +113,7 @@ error:function (){}
 <div class="col-md-10 col-sm-6 col-xs-12 col-md-offset-1"">
 <div class="panel panel-info">
 <div class="panel-heading">
-Issue a New Book
+Issue a New song
 </div>
 <div class="panel-body">
 
@@ -124,7 +124,7 @@ Issue a New Book
 <form method="post" name="chngpwd" class="form-horizontal" onSubmit="return valid();">
 										
 <?php	
-$bookid=$_GET['ISBNNumber'];
+$songid=$_GET['ISBNNumber'];
 $stdid=$_GET['StudentID'];
 ?>										
 <div class="form-group">
@@ -137,19 +137,19 @@ $stdid=$_GET['StudentID'];
 </div>
 
 <div class="form-group">
-<label>BookID<span style="color:red;">*</span></label>
-<input class="form-control" type="text" name="booikid" id="bookid" value="<?php echo htmlentities($bookid);?>" onBlur="getbook()"  required="required" />
+<label>songID<span style="color:red;">*</span></label>
+<input class="form-control" type="text" name="booikid" id="songid" value="<?php echo htmlentities($songid);?>" onBlur="getsong()"  required="required" />
 </div>
 
  <div class="form-group">
-  Book Title<select  class="form-control" name="bookdetails" id="get_book_name" readonly> 
+  song Title<select  class="form-control" name="songdetails" id="get_song_name" readonly> 
  </select>
  </div>
 											
 <?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
 else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
 
-<button type="submit" name="issue" id="submit" class="btn btn-info">Issue Book </button>
+<button type="submit" name="issue" id="submit" class="btn btn-info">Issue song </button>
 
 										</form>
                             </div>

@@ -1,11 +1,11 @@
-SELECT tblbooks.BookName,
-    tblbooks.ISBNNumber,
-    tblissuedbookdetails.IssuesDate,
-    tblissuedbookdetails.ReturnDate,
-    tblissuedbookdetails.id as rid,
-    tblissuedbookdetails.fine
-from tblissuedbookdetails
-    join tblstudents on tblstudents.StudentId = tblissuedbookdetails.StudentId
-    join tblbooks on tblbooks.id = tblissuedbookdetails.BookId
+SELECT tblsongs.songName,
+    tblsongs.ISBNNumber,
+    tblissuedsongdetails.IssuesDate,
+    tblissuedsongdetails.ReturnDate,
+    tblissuedsongdetails.id as rid,
+    tblissuedsongdetails.fine
+from tblissuedsongdetails
+    join tblstudents on tblstudents.StudentId = tblissuedsongdetails.StudentId
+    join tblsongs on tblsongs.id = tblissuedsongdetails.songId
 where tblstudents.StudentId = :sid
-order by tblissuedbookdetails.id desc;
+order by tblissuedsongdetails.id desc;

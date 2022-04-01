@@ -15,7 +15,7 @@ if (strlen($_SESSION['login']) == 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Online Library Management System | Manage Issued Books</title>
+    <title>Online Library Management System | Manage Issued songs</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -37,7 +37,7 @@ if (strlen($_SESSION['login']) == 0) {
         <div class="container">
             <div class="row pad-botm">
                 <div class="col-md-12">
-                    <h4 class="header-line">Request a Book</h4>
+                    <h4 class="header-line">Request a song</h4>
                 </div>
                 <div class="row">
                     <?php if ($_SESSION['error'] != "") { ?>
@@ -78,7 +78,7 @@ if (strlen($_SESSION['login']) == 0) {
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Available Books
+                            Available songs
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -86,7 +86,7 @@ if (strlen($_SESSION['login']) == 0) {
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Book Name</th>
+                                            <th>song Name</th>
                                             <th>Category</th>
                                             <th>Publication Name</th>
                                             <th>ISBN </th>
@@ -95,7 +95,7 @@ if (strlen($_SESSION['login']) == 0) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $sql = "SELECT tblbooks.BookName,tblbooks.Copies,tblbooks.IssuedCopies,tblcategory.CategoryName,tblauthors.AuthorName,tblbooks.ISBNNumber,tblbooks.BookPrice,tblbooks.id as bookid from  tblbooks join tblcategory on tblcategory.id=tblbooks.CatId join tblauthors on tblauthors.id=tblbooks.AuthorId";
+                                        <?php $sql = "SELECT tblsongs.songName,tblsongs.Copies,tblsongs.IssuedCopies,tblcategory.CategoryName,tblauthors.AuthorName,tblsongs.ISBNNumber,tblsongs.songPrice,tblsongs.id as songid from  tblsongs join tblcategory on tblcategory.id=tblsongs.CatId join tblauthors on tblauthors.id=tblsongs.AuthorId";
                                         $query = $dbh->prepare($sql);
                                         $query->execute();
                                         $results = $query->fetchAll(PDO::FETCH_OBJ);
@@ -106,12 +106,12 @@ if (strlen($_SESSION['login']) == 0) {
                                                     <tr class="odd gradeX">
 
                                                         <td class="center"><?php echo htmlentities($cnt); ?></td>
-                                                        <td class="center"><?php echo htmlentities($result->BookName); ?></td>
+                                                        <td class="center"><?php echo htmlentities($result->songName); ?></td>
                                                         <td class="center"><?php echo htmlentities($result->CategoryName); ?></td>
                                                         <td class="center"><?php echo htmlentities($result->AuthorName); ?></td>
                                                         <td class="center"><?php echo htmlentities($result->ISBNNumber); ?></td>
-                                                        <td class="center"><?php echo htmlentities($result->BookPrice); ?></td>
-                                                        <td class="center"><a href="temp.php?ISBNNumber=<?php echo $result->ISBNNumber; ?>&BookName=<?php echo $result->BookName; ?>&AuthorName=<?php echo $result->AuthorName; ?>&CategoryName=<?php echo $result->CategoryName; ?>&BookPrice=<?php echo $result->BookPrice; ?>&StudName=<?php echo $_SESSION['username']; ?>&StudentID=<?php echo $_SESSION['stdid']; ?>
+                                                        <td class="center"><?php echo htmlentities($result->songPrice); ?></td>
+                                                        <td class="center"><a href="temp.php?ISBNNumber=<?php echo $result->ISBNNumber; ?>&songName=<?php echo $result->songName; ?>&AuthorName=<?php echo $result->AuthorName; ?>&CategoryName=<?php echo $result->CategoryName; ?>&songPrice=<?php echo $result->songPrice; ?>&StudName=<?php echo $_SESSION['username']; ?>&StudentID=<?php echo $_SESSION['stdid']; ?>
 											"><button class="btn btn-primary" name="submit" id="submit" type="submit"><i class="fa fa-edit "></i> Request</button></td>
                                                     </tr>
                                         <?php $cnt = $cnt + 1;

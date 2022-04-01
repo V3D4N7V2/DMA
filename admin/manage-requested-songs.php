@@ -18,7 +18,7 @@ else{
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Online Library Management System | Manage Issued Books</title>
+    <title>Online Library Management System | Manage Issued songs</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -39,7 +39,7 @@ else{
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Manage Requested Books</h4>
+                <h4 class="header-line">Manage Requested songs</h4>
     </div>
      <div class="row">
     <?php if($_SESSION['error']!="")
@@ -85,7 +85,7 @@ else{
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                          Requested Books 
+                          Requested songs 
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -95,16 +95,16 @@ else{
                                             <th>#</th>
 											<th>Student ID</th>
                                             <th>Student Name</th>
-                                            <th>Book Name</th>
+                                            <th>song Name</th>
 											<th>Category Name</th>
 											<th>Publication Name</th>
 											<th>ISBN Number</th>
-											<th>Book Price</th>                                          
+											<th>song Price</th>                                          
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-<?php $sql = "SELECT StudentID,StudName,BookName,CategoryName,AuthorName,ISBNNumber,BookPrice from tblrequestedbookdetails";
+<?php $sql = "SELECT StudentID,StudName,songName,CategoryName,AuthorName,ISBNNumber,songPrice from tblrequestedsongdetails";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -117,12 +117,12 @@ foreach($results as $result)
                                             <td class="center"><?php echo htmlentities($cnt);?></td>
 											   <td class="center"><?php echo htmlentities($result->StudentID);?></td>
                                             <td class="center"><?php echo htmlentities($result->StudName);?></td>
-                                            <td class="center"><?php echo htmlentities($result->BookName);?></td>
+                                            <td class="center"><?php echo htmlentities($result->songName);?></td>
                                             <td class="center"><?php echo htmlentities($result->CategoryName);?></td>
                                             <td class="center"><?php echo htmlentities($result->AuthorName);?></td>
                                             <td class="center"><?php echo htmlentities($result->ISBNNumber);?></td>
-                                            <td class="center"><?php echo htmlentities($result->BookPrice);?></td>
-											<td class="center"><a href="issue-book2.php?ISBNNumber=<?php echo $result->ISBNNumber;?>&StudentID=<?php echo $result->StudentID;?>"><i class="fa fa-edit "></i></a> Issue&nbsp;&nbsp;</td>
+                                            <td class="center"><?php echo htmlentities($result->songPrice);?></td>
+											<td class="center"><a href="issue-song2.php?ISBNNumber=<?php echo $result->ISBNNumber;?>&StudentID=<?php echo $result->StudentID;?>"><i class="fa fa-edit "></i></a> Issue&nbsp;&nbsp;</td>
                                         </tr>
 <?php $cnt=$cnt+1;}} ?>                                      
                                     </tbody>

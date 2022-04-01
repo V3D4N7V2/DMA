@@ -32,8 +32,8 @@ header('location:manage-authors.php');
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Online Library Management System | Add Publication</title>
-    <!-- BOOTSTRAP CORE STYLE  -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- songTSTRAP CORE STYLE  -->
+    <link href="assets/css/songtstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
     <!-- CUSTOM STYLE  -->
@@ -97,8 +97,8 @@ foreach($results as $result)
     <!-- JAVASCRIPT FILES PLACED AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
     <!-- CORE JQUERY  -->
     <script src="assets/js/jquery-1.10.2.js"></script>
-    <!-- BOOTSTRAP SCRIPTS  -->
-    <script src="assets/js/bootstrap.js"></script>
+    <!-- songTSTRAP SCRIPTS  -->
+    <script src="assets/js/songtstrap.js"></script>
       <!-- CUSTOM SCRIPTS  -->
     <script src="assets/js/custom.js"></script>
 </body>

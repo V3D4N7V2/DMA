@@ -7,10 +7,17 @@ if(strlen($_SESSION['alogin'])==0)
 header('location:index.php');
 }
 else{ 
-
-
-
-    ?>
+if(isset($_GET['del']))
+{
+$id=$_GET['del'];
+$sql = "delete from tblsongs  WHERE id=:id";
+$query = $dbh->prepare($sql);
+$query -> bindParam(':id',$id, PDO::PARAM_STR);
+$query -> execute();
+$_SESSION['delmsg']="song deleted scuccessfully ";
+header('location:manage-songs.php');
+}
+?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -18,7 +25,7 @@ else{
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Online Library Management System | Manage Issued Books</title>
+    <title>Online Library Management System | Manage songs</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -39,7 +46,7 @@ else{
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Manage Issued Books</h4>
+                <h4 class="header-line">Manage songs</h4>
     </div>
      <div class="row">
     <?php if($_SESSION['error']!="")
@@ -62,7 +69,16 @@ else{
 </div>
 </div>
 <?php } ?>
-
+<?php if($_SESSION['updatemsg']!="")
+{?>
+<div class="col-md-6">
+<div class="alert alert-success" >
+ <strong>Success :</strong> 
+ <?php echo htmlentities($_SESSION['updatemsg']);?>
+<?php echo htmlentities($_SESSION['updatemsg']="");?>
+</div>
+</div>
+<?php } ?>
 
 
    <?php if($_SESSION['delmsg']!="")
@@ -85,7 +101,7 @@ else{
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                          Issued Books 
+                           songs Listing
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -93,17 +109,19 @@ else{
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Student Name</th>
-                                            <th>Book Name</th>
-                                            <th>Book ID</th>
-                                            <th>ISBN </th>
-                                            <th>Issued Date</th>
-                                            <th>Return Date</th>
+                                            <th>song Name</th>
+                                            <th>song ID</th>
+											<th>Total Copies</th>
+											<th>Issued Copies</th>
+                                            <th>Category</th>
+                                            <th>Publication</th>
+                                            <th>ISBN</th>
+                                            <th>Price</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-<?php $sql = "SELECT tblstudents.FullName,tblbooks.BookName,tblbooks.ISBNNumber,tblbooks.id,tblissuedbookdetails.IssuesDate,tblissuedbookdetails.ReturnDate,tblissuedbookdetails.id as rid from  tblissuedbookdetails join tblstudents on tblstudents.StudentId=tblissuedbookdetails.StudentId join tblbooks on tblbooks.id=tblissuedbookdetails.BookId order by tblissuedbookdetails.id desc";
+<?php $sql = "SELECT tblsongs.songName,tblsongs.id,tblsongs.Copies,tblsongs.IssuedCopies,tblcategory.CategoryName,tblauthors.AuthorName,tblsongs.ISBNNumber,tblsongs.songPrice,tblsongs.id as songid from  tblsongs join tblcategory on tblcategory.id=tblsongs.CatId join tblauthors on tblauthors.id=tblsongs.AuthorId";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -114,41 +132,18 @@ foreach($results as $result)
 {               ?>                                      
                                         <tr class="odd gradeX">
                                             <td class="center"><?php echo htmlentities($cnt);?></td>
-                                            <td class="center"><?php echo htmlentities($result->FullName);?></td>
-                                            <td class="center"><?php echo htmlentities($result->BookName);?></td>
+                                            <td class="center"><?php echo htmlentities($result->songName);?></td>
                                             <td class="center"><?php echo htmlentities($result->id);?></td>
+											<td class="center"><?php echo htmlentities($result->Copies);?></td>
+											<td class="center"><?php echo htmlentities($result->IssuedCopies);?></td>
+                                            <td class="center"><?php echo htmlentities($result->CategoryName);?></td>
+                                            <td class="center"><?php echo htmlentities($result->AuthorName);?></td>
                                             <td class="center"><?php echo htmlentities($result->ISBNNumber);?></td>
-                                            <td class="center"><?php echo htmlentities($result->IssuesDate);?></td>
-                                            <td class="center"><?php if($result->ReturnDate=="")
-                                            {
-												$date=Date('Y/m/d');
-												$date2=Date("Y/m/d",strtotime($result->IssuesDate));
-												$diff=strtotime($date)- strtotime($date2);
-												$days=floor($diff/86400);
-												if($days>7)
-												{
-													$days=$days-7;
-													$str=$days." days exceeded";
-												}
-												else if($days<7)
-												{
-													$days=7-$days;
-													$str=$days." days remaining";
-												}
-												else
-												{
-													$str="Last day remaining";
-												}
-                                                echo htmlentities("Not Return Yet ");?><span style="float:right"><b><?php echo htmlentities($str);?></b></span>
-											<?php	
-                                            } else {
-                                            echo htmlentities($result->ReturnDate);
-											}
-                                            ?></td>	
+                                            <td class="center"><?php echo htmlentities($result->songPrice);?></td>
                                             <td class="center">
 
-                                            <a href="update-issue-bookdeails.php?rid=<?php echo htmlentities($result->rid);?>&ISBNNumber=<?php echo htmlentities($result->ISBNNumber);?>&status=<?php echo htmlentities($str);?>&days=<?php echo htmlentities($days);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i> Edit</button> 
-                                         
+                                            <a href="edit-song.php?songid=<?php echo htmlentities($result->songid);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i> Edit</button> 
+                                          <a href="manage-songs.php?del=<?php echo htmlentities($result->songid);?>" onclick="return confirm('Are you sure you want to delete?');"" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i> Delete</button>
                                             </td>
                                         </tr>
  <?php $cnt=$cnt+1;}} ?>                                      

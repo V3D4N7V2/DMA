@@ -10,15 +10,15 @@ else{
 
 if(isset($_POST['add']))
 {
-$bookname=$_POST['bookname'];
+$songname=$_POST['songname'];
 $category=$_POST['category'];
 $author=$_POST['author'];
 $isbn=$_POST['isbn'];
 $price=$_POST['price'];
 $copies=$_POST['copies'];
-$sql="INSERT INTO  tblbooks(BookName,CatId,AuthorId,ISBNNumber,BookPrice,Copies) VALUES(:bookname,:category,:author,:isbn,:price,:copies)";
+$sql="INSERT INTO  tblsongs(songName,CatId,AuthorId,ISBNNumber,songPrice,Copies) VALUES(:songname,:category,:author,:isbn,:price,:copies)";
 $query = $dbh->prepare($sql);
-$query->bindParam(':bookname',$bookname,PDO::PARAM_STR);
+$query->bindParam(':songname',$songname,PDO::PARAM_STR);
 $query->bindParam(':category',$category,PDO::PARAM_STR);
 $query->bindParam(':author',$author,PDO::PARAM_STR);
 $query->bindParam(':isbn',$isbn,PDO::PARAM_STR);
@@ -28,13 +28,13 @@ $query->execute();
 $lastInsertId = $dbh->lastInsertId();
 if($lastInsertId)
 {
-$_SESSION['msg']="Book Listed successfully";
-header('location:manage-books.php');
+$_SESSION['msg']="songk Listed successfully";
+header('location:manage-songs.php');
 }
 else 
 {
 $_SESSION['error']="Something went wrong. Please try again";
-header('location:manage-books.php');
+header('location:manage-songs.php');
 }
 
 }
@@ -46,9 +46,9 @@ header('location:manage-books.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Online Library Management System | Add Book</title>
-    <!-- BOOTSTRAP CORE STYLE  -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <title>Online Library Management System | Add songk</title>
+    <!-- songTSTRAP CORE STYLE  -->
+    <link href="assets/css/songtstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
     <!-- CUSTOM STYLE  -->
@@ -66,7 +66,7 @@ header('location:manage-books.php');
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Add Book</h4>
+                <h4 class="header-line">Add songk</h4>
                 
                             </div>
 
@@ -75,13 +75,13 @@ header('location:manage-books.php');
 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3"">
 <div class="panel panel-info">
 <div class="panel-heading">
-Book Info
+songk Info
 </div>
 <div class="panel-body">
 <form role="form" method="post">
 <div class="form-group">
-<label>Book Name<span style="color:red;">*</span></label>
-<input class="form-control" type="text" name="bookname" autocomplete="off"  required />
+<label>songk Name<span style="color:red;">*</span></label>
+<input class="form-control" type="text" name="songname" autocomplete="off"  required />
 </div>
 
 <div class="form-group">
@@ -129,7 +129,7 @@ foreach($results as $result)
 <div class="form-group">
 <label>ISBN Number<span style="color:red;">*</span></label>
 <input class="form-control" type="text" name="isbn"  required="required" autocomplete="off"  />
-<p class="help-block">An ISBN is an International Standard Book Number.ISBN Must be unique</p>
+<p class="help-block">An ISBN is an International Standard songk Number.ISBN Must be unique</p>
 </div>
  
  <div class="form-group">
@@ -156,8 +156,8 @@ foreach($results as $result)
     <!-- JAVASCRIPT FILES PLACED AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
     <!-- CORE JQUERY  -->
     <script src="assets/js/jquery-1.10.2.js"></script>
-    <!-- BOOTSTRAP SCRIPTS  -->
-    <script src="assets/js/bootstrap.js"></script>
+    <!-- songTSTRAP SCRIPTS  -->
+    <script src="assets/js/songtstrap.js"></script>
       <!-- CUSTOM SCRIPTS  -->
     <script src="assets/js/custom.js"></script>
 </body>

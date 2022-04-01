@@ -7,17 +7,10 @@ if(strlen($_SESSION['alogin'])==0)
 header('location:index.php');
 }
 else{ 
-if(isset($_GET['del']))
-{
-$id=$_GET['del'];
-$sql = "delete from tblbooks  WHERE id=:id";
-$query = $dbh->prepare($sql);
-$query -> bindParam(':id',$id, PDO::PARAM_STR);
-$query -> execute();
-$_SESSION['delmsg']="Book deleted scuccessfully ";
-header('location:manage-books.php');
-}
-?>
+
+
+
+    ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -25,7 +18,7 @@ header('location:manage-books.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Online Library Management System | Manage Books</title>
+    <title>Online Library Management System | Manage Issued songs</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -46,7 +39,7 @@ header('location:manage-books.php');
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Manage Books</h4>
+                <h4 class="header-line">Manage Issued songs</h4>
     </div>
      <div class="row">
     <?php if($_SESSION['error']!="")
@@ -69,16 +62,7 @@ header('location:manage-books.php');
 </div>
 </div>
 <?php } ?>
-<?php if($_SESSION['updatemsg']!="")
-{?>
-<div class="col-md-6">
-<div class="alert alert-success" >
- <strong>Success :</strong> 
- <?php echo htmlentities($_SESSION['updatemsg']);?>
-<?php echo htmlentities($_SESSION['updatemsg']="");?>
-</div>
-</div>
-<?php } ?>
+
 
 
    <?php if($_SESSION['delmsg']!="")
@@ -101,7 +85,7 @@ header('location:manage-books.php');
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                           Books Listing
+                          Issued songs 
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -109,19 +93,17 @@ header('location:manage-books.php');
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Book Name</th>
-                                            <th>Book ID</th>
-											<th>Total Copies</th>
-											<th>Issued Copies</th>
-                                            <th>Category</th>
-                                            <th>Publication</th>
-                                            <th>ISBN</th>
-                                            <th>Price</th>
+                                            <th>Student Name</th>
+                                            <th>song Name</th>
+                                            <th>song ID</th>
+                                            <th>ISBN </th>
+                                            <th>Issued Date</th>
+                                            <th>Return Date</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-<?php $sql = "SELECT tblbooks.BookName,tblbooks.id,tblbooks.Copies,tblbooks.IssuedCopies,tblcategory.CategoryName,tblauthors.AuthorName,tblbooks.ISBNNumber,tblbooks.BookPrice,tblbooks.id as bookid from  tblbooks join tblcategory on tblcategory.id=tblbooks.CatId join tblauthors on tblauthors.id=tblbooks.AuthorId";
+<?php $sql = "SELECT tblstudents.FullName,tblsongs.songName,tblsongs.ISBNNumber,tblsongs.id,tblissuedsongdetails.IssuesDate,tblissuedsongdetails.ReturnDate,tblissuedsongdetails.id as rid from  tblissuedsongdetails join tblstudents on tblstudents.StudentId=tblissuedsongdetails.StudentId join tblsongs on tblsongs.id=tblissuedsongdetails.songId order by tblissuedsongdetails.id desc";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -132,18 +114,41 @@ foreach($results as $result)
 {               ?>                                      
                                         <tr class="odd gradeX">
                                             <td class="center"><?php echo htmlentities($cnt);?></td>
-                                            <td class="center"><?php echo htmlentities($result->BookName);?></td>
+                                            <td class="center"><?php echo htmlentities($result->FullName);?></td>
+                                            <td class="center"><?php echo htmlentities($result->songName);?></td>
                                             <td class="center"><?php echo htmlentities($result->id);?></td>
-											<td class="center"><?php echo htmlentities($result->Copies);?></td>
-											<td class="center"><?php echo htmlentities($result->IssuedCopies);?></td>
-                                            <td class="center"><?php echo htmlentities($result->CategoryName);?></td>
-                                            <td class="center"><?php echo htmlentities($result->AuthorName);?></td>
                                             <td class="center"><?php echo htmlentities($result->ISBNNumber);?></td>
-                                            <td class="center"><?php echo htmlentities($result->BookPrice);?></td>
+                                            <td class="center"><?php echo htmlentities($result->IssuesDate);?></td>
+                                            <td class="center"><?php if($result->ReturnDate=="")
+                                            {
+												$date=Date('Y/m/d');
+												$date2=Date("Y/m/d",strtotime($result->IssuesDate));
+												$diff=strtotime($date)- strtotime($date2);
+												$days=floor($diff/86400);
+												if($days>7)
+												{
+													$days=$days-7;
+													$str=$days." days exceeded";
+												}
+												else if($days<7)
+												{
+													$days=7-$days;
+													$str=$days." days remaining";
+												}
+												else
+												{
+													$str="Last day remaining";
+												}
+                                                echo htmlentities("Not Return Yet ");?><span style="float:right"><b><?php echo htmlentities($str);?></b></span>
+											<?php	
+                                            } else {
+                                            echo htmlentities($result->ReturnDate);
+											}
+                                            ?></td>	
                                             <td class="center">
 
-                                            <a href="edit-book.php?bookid=<?php echo htmlentities($result->bookid);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i> Edit</button> 
-                                          <a href="manage-books.php?del=<?php echo htmlentities($result->bookid);?>" onclick="return confirm('Are you sure you want to delete?');"" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i> Delete</button>
+                                            <a href="update-issue-songdeails.php?rid=<?php echo htmlentities($result->rid);?>&ISBNNumber=<?php echo htmlentities($result->ISBNNumber);?>&status=<?php echo htmlentities($str);?>&days=<?php echo htmlentities($days);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i> Edit</button> 
+                                         
                                             </td>
                                         </tr>
  <?php $cnt=$cnt+1;}} ?>                                      

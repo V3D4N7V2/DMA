@@ -84,27 +84,27 @@ INSERT INTO `tblauthors` (`id`, `AuthorName`, `creationDate`, `UpdationDate`) VA
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblbooks`
+-- Table structure for table `tblsongs`
 --
 
-CREATE TABLE `tblbooks` (
+CREATE TABLE `tblsongs` (
   `id` int(11) NOT NULL,
-  `BookName` varchar(255) DEFAULT NULL,
+  `songName` varchar(255) DEFAULT NULL,
   `Copies` int(3) NOT NULL,
   `IssuedCopies` int(3) NOT NULL,
   `CatId` int(11) DEFAULT NULL,
   `AuthorId` int(11) DEFAULT NULL,
   `ISBNNumber` int(11) DEFAULT NULL,
-  `BookPrice` int(11) DEFAULT NULL,
+  `songPrice` int(11) DEFAULT NULL,
   `RegDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `UpdationDate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tblbooks`
+-- Dumping data for table `tblsongs`
 --
 
-INSERT INTO `tblbooks` (`id`, `BookName`, `Copies`, `IssuedCopies`, `CatId`, `AuthorId`, `ISBNNumber`, `BookPrice`, `RegDate`, `UpdationDate`) VALUES
+INSERT INTO `tblsongs` (`id`, `songName`, `Copies`, `IssuedCopies`, `CatId`, `AuthorId`, `ISBNNumber`, `songPrice`, `RegDate`, `UpdationDate`) VALUES
 (3, 'Chemistry', 10, 7, 6, 4, 1111, 15, '2017-07-08 20:17:31', '2018-07-20 09:40:40'),
 (4, 'physics', 5, 3, 4, 5, 20, 100, '2018-06-06 22:52:21', '2018-07-13 08:51:41'),
 (5, 'C Programming', 3, 1, 5, 3, 111, 200, '2018-06-11 17:48:02', '2018-07-20 09:37:04'),
@@ -157,12 +157,12 @@ INSERT INTO `tblfine` (`fine`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblissuedbookdetails`
+-- Table structure for table `tblissuedsongdetails`
 --
 
-CREATE TABLE `tblissuedbookdetails` (
+CREATE TABLE `tblissuedsongdetails` (
   `id` int(11) NOT NULL,
-  `BookId` int(11) DEFAULT NULL,
+  `songId` int(11) DEFAULT NULL,
   `StudentID` varchar(150) DEFAULT NULL,
   `IssuesDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `ReturnDate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
@@ -171,10 +171,10 @@ CREATE TABLE `tblissuedbookdetails` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tblissuedbookdetails`
+-- Dumping data for table `tblissuedsongdetails`
 --
 
-INSERT INTO `tblissuedbookdetails` (`id`, `BookId`, `StudentID`, `IssuesDate`, `ReturnDate`, `ReturnStatus`, `fine`) VALUES
+INSERT INTO `tblissuedsongdetails` (`id`, `songId`, `StudentID`, `IssuesDate`, `ReturnDate`, `ReturnStatus`, `fine`) VALUES
 (6, 4, 'SID009', '2018-06-12 20:52:10', '2018-06-13 20:44:28', 1, 20),
 (7, 5, 'SID009', '2018-06-12 20:55:24', '2018-06-12 23:46:08', 1, 200),
 (8, 3, 'SID009', '2018-06-12 23:27:23', NULL, 0, NULL),
@@ -189,17 +189,17 @@ INSERT INTO `tblissuedbookdetails` (`id`, `BookId`, `StudentID`, `IssuesDate`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblrequestedbookdetails`
+-- Table structure for table `tblrequestedsongdetails`
 --
 
-CREATE TABLE `tblrequestedbookdetails` (
+CREATE TABLE `tblrequestedsongdetails` (
   `StudentID` varchar(20) NOT NULL,
   `StudName` varchar(40) NOT NULL,
-  `BookName` varchar(50) NOT NULL,
+  `songName` varchar(50) NOT NULL,
   `CategoryName` varchar(20) NOT NULL,
   `AuthorName` varchar(50) NOT NULL,
   `ISBNNumber` int(11) NOT NULL,
-  `BookPrice` int(11) NOT NULL
+  `songPrice` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -249,9 +249,9 @@ ALTER TABLE `tblauthors`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tblbooks`
+-- Indexes for table `tblsongs`
 --
-ALTER TABLE `tblbooks`
+ALTER TABLE `tblsongs`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -261,9 +261,9 @@ ALTER TABLE `tblcategory`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tblissuedbookdetails`
+-- Indexes for table `tblissuedsongdetails`
 --
-ALTER TABLE `tblissuedbookdetails`
+ALTER TABLE `tblissuedsongdetails`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -290,9 +290,9 @@ ALTER TABLE `tblauthors`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `tblbooks`
+-- AUTO_INCREMENT for table `tblsongs`
 --
-ALTER TABLE `tblbooks`
+ALTER TABLE `tblsongs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
@@ -302,9 +302,9 @@ ALTER TABLE `tblcategory`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `tblissuedbookdetails`
+-- AUTO_INCREMENT for table `tblissuedsongdetails`
 --
-ALTER TABLE `tblissuedbookdetails`
+ALTER TABLE `tblissuedsongdetails`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --

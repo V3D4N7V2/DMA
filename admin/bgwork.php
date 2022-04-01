@@ -16,7 +16,7 @@ $_SESSION['fine']=$result->fine;
 }
 }
 
-$ret="select BookId,StudentID,IssuesDate from tblissuedbookdetails where ReturnStatus=0";
+$ret="select songId,StudentID,IssuesDate from tblissuedsongdetails where ReturnStatus=0";
 $query= $dbh -> prepare($ret);
 $query-> execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);

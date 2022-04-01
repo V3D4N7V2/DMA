@@ -16,8 +16,8 @@ $sql ="SELECT fine from tblfine ";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
-$listedbooks=$query->rowCount();
-if($listedbooks==0)
+$listedsongs=$query->rowCount();
+if($listedsongs==0)
 {
 $sql="insert into tblfine values(:fine)";
 $query = $dbh->prepare($sql);

@@ -18,8 +18,8 @@ else{?>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <![endif]-->
     <title>Online Library Management System | Admin Dash Board</title>
-    <!-- BOOTSTRAP CORE STYLE  -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- songTSTRAP CORE STYLE  -->
+    <link href="assets/css/songtstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
     <!-- CUSTOM STYLE  -->
@@ -47,18 +47,18 @@ else{?>
 
  <div class="col-md-3 col-sm-3 col-xs-6">
                       <div class="alert alert-success back-widget-set text-center">
-                            <i class="fa fa-book fa-5x"></i>
+                            <i class="fa fa-songk fa-5x"></i>
 <?php 
-$sql ="SELECT id from tblbooks ";
+$sql ="SELECT id from tblsongs ";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
-$listdbooks=$query->rowCount();
+$listdsongs=$query->rowCount();
 ?>
 
 
-                            <h3><?php echo htmlentities($listdbooks);?></h3>
-                      Books Listed
+                            <h3><?php echo htmlentities($listdsongs);?></h3>
+                      songs Listed
                         </div>
                     </div>
 
@@ -67,15 +67,15 @@ $listdbooks=$query->rowCount();
                       <div class="alert alert-info back-widget-set text-center">
                             <i class="fa fa-bars fa-5x"></i>
 <?php 
-$sql1 ="SELECT id from tblissuedbookdetails ";
+$sql1 ="SELECT id from tblissuedsongdetails ";
 $query1 = $dbh -> prepare($sql1);
 $query1->execute();
 $results1=$query1->fetchAll(PDO::FETCH_OBJ);
-$issuedbooks=$query1->rowCount();
+$issuedsongs=$query1->rowCount();
 ?>
 
-                            <h3><?php echo htmlentities($issuedbooks);?> </h3>
-                           Times Book Issued
+                            <h3><?php echo htmlentities($issuedsongs);?> </h3>
+                           Times songk Issued
                         </div>
                     </div>
              
@@ -84,16 +84,16 @@ $issuedbooks=$query1->rowCount();
                             <i class="fa fa-recycle fa-5x"></i>
 <?php 
 $status=1;
-$sql2 ="SELECT id from tblissuedbookdetails where ReturnStatus=:status";
+$sql2 ="SELECT id from tblissuedsongdetails where ReturnStatus=:status";
 $query2 = $dbh -> prepare($sql2);
 $query2->bindParam(':status',$status,PDO::PARAM_STR);
 $query2->execute();
 $results2=$query2->fetchAll(PDO::FETCH_OBJ);
-$returnedbooks=$query2->rowCount();
+$returnedsongs=$query2->rowCount();
 ?>
 
-                            <h3><?php echo htmlentities($returnedbooks);?></h3>
-                          Times  Books Returned
+                            <h3><?php echo htmlentities($returnedsongs);?></h3>
+                          Times  songs Returned
                         </div>
                     </div>
                <div class="col-md-3 col-sm-3 col-xs-6">
@@ -223,8 +223,8 @@ $fine=$result->fine;
     <!-- JAVASCRIPT FILES PLACED AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
     <!-- CORE JQUERY  -->
     <script src="assets/js/jquery-1.10.2.js"></script>
-    <!-- BOOTSTRAP SCRIPTS  -->
-    <script src="assets/js/bootstrap.js"></script>
+    <!-- songTSTRAP SCRIPTS  -->
+    <script src="assets/js/songtstrap.js"></script>
       <!-- CUSTOM SCRIPTS  -->
     <script src="assets/js/custom.js"></script>
 </body>

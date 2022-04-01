@@ -42,10 +42,10 @@
                                 </ul>
                             </li>
  <li>
-                                <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown"> Books <i class="fa fa-angle-down"></i></a>
+                                <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown"> songs <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="ddlmenuItem">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="add-book.php">Add Book</a></li>
-                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="manage-books.php">Manage Books</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="add-song.php">Add song</a></li>
+                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="manage-songs.php">Manage songs</a></li>
 									 <li role="presentation"><a role="menuitem" tabindex="-1" href="set-fine.php">Update Fine</a></li>
                                 </ul>
                             </li>
@@ -53,14 +53,14 @@
 							
 							
                            <li>
-                                <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown"> Issue Books <i class="fa fa-angle-down"></i></a>
+                                <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown"> Issue songs <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="ddlmenuItem">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="issue-book.php">Issue New Book</a></li>
-                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="manage-issued-books.php">Manage Issued Books</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="issue-song.php">Issue New song</a></li>
+                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="manage-issued-songs.php">Manage Issued songs</a></li>
                                 </ul>
                             </li>
 							
-							<li><a href="manage-requested-books.php" class="menu-top-active">Requested Books</a></li>
+							<li><a href="manage-requested-songs.php" class="menu-top-active">Requested songs</a></li>
 							<li><a href="report.php" class="menu-top-active">Report</a></li>
                            
                              <li><a href="reg-students.php">Reg Students</a></li>
